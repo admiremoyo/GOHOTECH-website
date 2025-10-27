@@ -49,12 +49,11 @@
             fill: white;
         }
 
-        header.scrolled .goho-logo-text {
-            color: #16171A;
-        }
-
-        header.scrolled .goho-logo-text span {
-            color: #4A90E2;
+        /* Filter for scrolled logo - adjust brightness/contrast for white background */
+        header.scrolled .goho-logo-img {
+            filter: brightness(0.1) contrast(1.5);
+            /* Example filter */
+            /* Alternatively, provide a dark version of the logo and switch src in JS */
         }
 
         header.scrolled .navbar-toggler svg {
@@ -121,9 +120,13 @@
         </div>
         <nav class="navbar py-4">
             <div class="container mx-auto px-6 flex justify-between items-center">
-                <a href="#"
-                    class="goho-logo-text text-2xl font-black text-white transition-colors duration-300 tracking-tighter">GOHO<span
-                        class="text-[#B4E300] transition-colors duration-300">TECH</span></a>
+                <!-- Logo Updated -->
+                <a href="#" class="block"> <!-- Removed text styles -->
+                    <img src="logo.jpg" alt="Goho Tech Logo"
+                        class="goho-logo-img h-8 md:h-10 w-auto transition-all duration-300"
+                        onerror="this.onerror=null;this.src='https://placehold.co/150x40/16171A/ffffff?text=Goho+Tech'">
+                    <!-- Added height, width-auto, and transition -->
+                </a>
                 <div class="hidden lg:flex items-center space-x-8">
                     <a href="#work"
                         class="nav-link text-sm uppercase tracking-widest font-medium hover:text-[#B4E300] transition-colors">Work</a>
@@ -433,11 +436,20 @@
 
     <script>
         const header = document.getElementById('header');
+        const logoImg = header.querySelector('.goho-logo-img');
+        const originalLogoSrc = logoImg.src; // Assuming initial src is for dark background
+        // Add a dark version logo source if available, otherwise we use filter
+        // const darkLogoSrc = "path/to/dark_logo.png";
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
+                // If using a separate dark logo:
+                // if (darkLogoSrc) logoImg.src = darkLogoSrc;
             } else {
                 header.classList.remove('scrolled');
+                // If using a separate dark logo:
+                // if (darkLogoSrc) logoImg.src = originalLogoSrc;
             }
         });
 
